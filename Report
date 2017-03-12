@@ -1,0 +1,111 @@
+\documentclass[12pt]{article}
+\usepackage{authblk}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\title{A Wave Description of Coaxial Cable Behavior}
+\author{Tanner Simpson}
+\date{March 11, 2017}
+\affil{Department of Physics, Oregon State University}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\section{Abstract}
+
+\section{Introduction and Motivation}
+In today's world of mass communication and information transfer, understanding transmission has never been more important. Within the last century, developments have allowed instantaneous exchanges from people at opposite ends of the world: simply unprecedented in history.  This has allowed for rapid advancement of technology and society as a whole.  Though it may sound like an oversimplification, the basic coaxial cable may be the backbone of this fairly recent infrastructure. \\
+
+Coaxial cable (sometimes called coax) has been around since its discovery by Heaviside in the late 1800's.  Since then, it has been relied upon for transmission in all sorts of industries: including cable television, radio, and the internet.  Coax is known to send its pulses using electromagnetic fluctuations in the form of transverse waves. \\
+
+Since coax relies upon electromagnetic waves to send signals, it should obey a wave equation.  This wave equation should be similar to the one that models the classical transverse wave,
+
+\begin{equation}
+\frac{\partial^2 f}{\partial t^2}=\frac{1}{v^2}\frac{\partial^2 f}{\partial x^2}
+\end{equation} 
+where f is the vertical displacement, x is the horizontal position, v is the phase velocity, and t is time. In this experiment, I will be testing if a coaxial cable will behave as a 2nd order, partial, differential wave equation predicts. \\
+
+If successful, this model can be applied to any situation where coaxial cable is used as an electrical transmitter. This would give further insight into behaviors like wave reflection and transmission. Ultimately, the model could allow better optimization of cables and receivers, which would yield more accurate communication and information transfer.  
+
+\section{Model}
+Coaxial cable is designed around a central inner wire transmitting the main signal.  The wire (typically made from copper) is immediately surrounded by an insulating dielectric (to prevent interference). Surrounding the dielectric is a flexible metallic sheath that functions as a ground.  Lastly, the entire wire is enclosed in a plastic (PVC) jacket to further prevent external influence (see Figure 1 below).  
+
+\begin{figure}[h]
+\includegraphics[scale=.5]{coaxcable1.png} 
+\centering
+\caption{A cross section of a standard coax cable}
+\centering
+\end{figure}
+
+Though there are different varieties of coax cable (different materials for insulator, jacket, etc), they all have the same basic layout.  Therefore, all types of cable share common characteristics. \\
+
+To begin, each cable has inherent resistance.  Though this value is usually very small, it can still have an impact on the signal, especially over great distances.  For smaller distances, the resistance can occasionally be neglected.  Coax cable also has two charged sources with different potentials (the inner and outer conductive wires).  As the wires are separated by a dielectric, there is a given capacitance for each length of the cable. Due to the alternating current passing through the cable, the magnetic flux isn't constant in the wire.  Therefore, there is inductance present as well.  Finally, the dielectric insulator is innately imperfect; often a small amount of current can pass from the inner wire to the outer sheath.\\
+
+Each of these voltage drops take place over the entire length of the cable. This means that each infinitesimal length of cable, there is a circuit that can be constructed:\\
+
+\begin{figure}[h]
+\includegraphics[scale=.5]{coaxcircuit1.png} 
+\centering
+\caption{An infinitely small length of coax modeled as a simple circuit}
+\centering
+\end{figure}
+In the above figure, the resistor is R, the inductor L, the capacitance C, and dielectric conductance, G.  The upper wire is the inner wire of the cable, with the lower wire as the sheath.  All of these quantities can create a voltage drop across a stretch of cable; Kirchoff's voltage loop rule can be applied:
+\begin{equation}
+\sum_{i=1}^{n} V_i = 0 = V_R + V_L + \Delta V
+\end{equation}  
+This states that the net gain or drop in voltage (V) around a circular loop of current is always zero.  In the circuit, the voltage drop occurs with $V_r$, $V_L$, and $\Delta V$(the combined voltage drop from the capacitance and dielectric conductance). Using Ohm's Law ($\Delta V = IR$) and Faraday's law for inductors ($\Delta V = L \frac{dI}{dt}$), the voltage drop for each component can be calculated.  As this occurs at an infinitesimal level, the applied loop rule can be rewritten as: 
+
+\begin{equation}
+\sum_{i=1}^{n} V_i = 0 = (IR + LI_t)\delta x + \delta V
+\end{equation}
+where $\delta$ denotes a small change. The t subscript on the current term I, indicates a partial derivative with respect to time. Equation 3 then can be simplified to:
+\begin{equation}
+\sum_{i=1}^{n} V_i = 0 = IR + LI_t + V_x
+\end{equation}
+where the x subscript on the voltage term indicates a partial derivative with respect to position.  \\
+
+A similar method can be used to solve for the current component of each minuscule device. Kirchoff's loop rule for current dictates that the sum of currents in conductors meeting at a point is equal to zero:
+\begin{equation}
+\sum_{i=1}^{n} I_i = 0 = I_C + I_R + \Delta I
+\end{equation}
+By using Ohm's Law and the voltage-capacitance relation for current, Equation 5 can be matched to the scenario for coax cable:
+
+\begin{equation}
+\sum_{i=1}^{n} I_i = 0 = CV_t + GV + I_x
+\end{equation}
+with the subscripts t and x denoting the same as in the voltage case.  By taking the partial x derivative of equation 4 and the partial t derivative of equation 6, two second order PDEs are given:
+\begin{equation}
+0 = I_xR + LI_{tx} + V_{xx}
+\end{equation}
+\begin{equation}
+0 = CV_{tt} + GV_t + I_{xt}
+\end{equation}
+By substituting Equations 6 and 8 into Equation 7, each of the current terms can be eliminated:
+\begin{equation}
+\frac{1}{LC}V_{xx} = V_{tt} + (\Gamma + \frac{G}{C})V_t + \frac{RG}{LC}V
+\end{equation}
+where $\Gamma$ is $\frac{R}{L}$.  For most situations, the conductance of the dielectric material is extremely small.  Equation 9 simplifies to:
+\begin{equation}
+\frac{1}{LC}V_{xx} = V_{tt} + \Gamma V_t
+\end{equation}
+Depending on the accuracy needed for the model, damping may or may not need to be taken into account.  The damping of this coax circuit is primarily caused by the resistance term of $\Gamma$.  $\Gamma$ is called the dampening coefficient of the system. In the event of small damping (theoretically a reasonable approximation given the small resistance of coax cable) Equation 10 is simplified even further (and converted back to Leibniz notation):
+
+\begin{equation}
+\frac{\partial^2 V}{\partial t^2}=\frac{1}{LC}\frac{\partial^2 V}{\partial x^2}
+\end{equation} 
+This closely resembles the original, known wave equation (Equation 1).  Equation 11 also implies that the wave propagation speed through coaxial cable is $\frac{1}{\sqrt{LC}}$. 
+
+ 
+\section{Methods}
+
+\section{Results}
+
+\section{Analysis}
+
+\section{Conclusion}
+
+\section{Acknowledgements}
+
+\section{References}
+\end{document}
